@@ -1,4 +1,4 @@
-export {};
+export { PresentJS };
 
 /**
  * * The present.js Instance
@@ -22,7 +22,7 @@ const PresentJS = {
 };
 
 /**
- * * The Position Class object
+ * * The Position Class
  */
 class Position {
     relativePosition: number[] = [];
@@ -55,16 +55,16 @@ class Position {
 }
 
 /**
- * * The Slide Class object
+ * * The Slide Class
  */
 class Slide {
     elements: Element[] = [];
 }
 
 /**
- * * The Element Class object
+ * * The Element Class
  */
-class Element {
+class SlideElement {
     parent: Slide;
     position: Position;
     content: Content;
@@ -76,6 +76,9 @@ class Element {
     }
 }
 
+/**
+ * * The ContentType Enum
+ */
 enum ContentType {
     TEXT,
     IMAGE,
@@ -83,6 +86,9 @@ enum ContentType {
     HTML_ELEMENT,
 }
 
+/**
+ * * The Content Class
+ */
 class Content {
     type: ContentType;
 

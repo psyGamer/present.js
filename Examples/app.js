@@ -1,1 +1,1 @@
-import "../Library/";
+import PresentJS from "../Library/present";

@@ -1,7 +1,10 @@
+"use strict";
+exports.__esModule = true;
+exports.PresentJS = void 0;
 /**
- * The present.js Instance
+ * * The present.js Instance
  */
-const PresentJS = {
+var PresentJS = {
     /**
      * The width of the window in pixels
      */
@@ -10,58 +13,78 @@ const PresentJS = {
      * The height of the window in pixels
      */
     windowY: 0,
-
     /**
-     * @param test is good
+     * @return {Slide} A new Slide object
      */
-    createSlider: (): Slide => {
+    createSlider: function () {
         return new Slide();
-    },
+    }
 };
-
-class Slide {
-    elements = [];
-}
-
+exports.PresentJS = PresentJS;
 /**
- * Transform a string to upper-case.
- * @param {string} value The string to be transformed.
- * @returns {string} The upper-cased string.
+ * * The Position Class
  */
-function upper1(value) {
-    return value.toUpperCase();
-}
-
-/*class Element {
-    constructor(parent, position, content);
-}*/
-
-class Position {
-    relativePosition = [];
-    pixelPosition = [];
-
-    constructor(
-        relativeXPosition,
-        relativeYPosition,
-        pixelXPosition = 0,
-        pixelYPosition = 0
-    ) {
+var Position = /** @class */ (function () {
+    function Position(relativeXPosition, relativeYPosition, pixelXPosition, pixelYPosition) {
+        var _this = this;
+        if (pixelXPosition === void 0) { pixelXPosition = 0; }
+        if (pixelYPosition === void 0) { pixelYPosition = 0; }
+        this.relativePosition = [];
+        this.pixelPosition = [];
+        this.getPosition = function (asArray) {
+            if (asArray === void 0) { asArray = false; }
+            if (asArray) {
+            }
+            else {
+                return (_this.relativePosition[0] * PresentJS.windowX +
+                    _this.pixelPosition[0],
+                    _this.relativePosition[1] * PresentJS.windowY +
+                        _this.pixelPosition[1]);
+            }
+        };
         this.relativePosition[0] = relativeXPosition;
         this.relativePosition[1] = relativeYPosition;
-
         this.pixelPosition[0] = pixelXPosition;
         this.pixelPosition[1] = pixelYPosition;
     }
-
-    getPosition = (asArray = false) => {
-        if (asArray) {
-        } else {
-            return (
-                this.relativePosition[0] * windowX + pixelXPosition[0],
-                this.relativePosition[1] * windowY + pixelXPosition[1]
-            );
-        }
-    };
-}
-
-class Content {}
+    return Position;
+}());
+/**
+ * * The Slide Class
+ */
+var Slide = /** @class */ (function () {
+    function Slide() {
+        this.elements = [];
+    }
+    return Slide;
+}());
+/**
+ * * The Element Class
+ */
+var SlideElement = /** @class */ (function () {
+    function SlideElement(parent, position, content) {
+        this.parent = parent;
+        this.position = position;
+        this.content = content;
+    }
+    return SlideElement;
+}());
+/**
+ * * The ContentType Enum
+ */
+var ContentType;
+(function (ContentType) {
+    ContentType[ContentType["TEXT"] = 0] = "TEXT";
+    ContentType[ContentType["IMAGE"] = 1] = "IMAGE";
+    ContentType[ContentType["VIDEO"] = 2] = "VIDEO";
+    ContentType[ContentType["HTML_ELEMENT"] = 3] = "HTML_ELEMENT";
+})(ContentType || (ContentType = {}));
+/**
+ * * The Content Class
+ */
+var Content = /** @class */ (function () {
+    function Content(type) {
+        this.type = type;
+    }
+    return Content;
+}());
