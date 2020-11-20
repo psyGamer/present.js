@@ -1,1 +1,1 @@
-import PresentJS from "../Library/present";
+PresentJS.test;
