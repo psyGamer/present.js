@@ -2,14 +2,31 @@
 // * Classes * //
 var PresentationWindow = /** @class */ (function () {
     function PresentationWindow(id) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         this.obj = document.querySelector("presentation#" + id);
         (_a = this.obj) === null || _a === void 0 ? void 0 : _a.setAttribute("style", "width: 100vw; height: 100vh; margin: 0; padding: 0; display: inline-block");
         this.x = ((_b = this.obj) === null || _b === void 0 ? void 0 : _b.offsetWidth) ? this.obj.offsetWidth : 0;
         this.y = ((_c = this.obj) === null || _c === void 0 ? void 0 : _c.offsetHeight) ? this.obj.offsetHeight : 0;
         this.id = id;
         this.scenes = Scene.getScenes(this);
+        if (this.scenes.length == 0) {
+            this.startAt = "";
+            this.currentScene = null;
+            return;
+        }
+        var startAtAttr = (_d = this.obj) === null || _d === void 0 ? void 0 : _d.getAttribute("start-at");
+        this.startAt = startAtAttr ? startAtAttr : this.scenes[0].title;
+        this.currentScene = Scene.getSceneByName(this, this.startAt);
     }
+    PresentationWindow.prototype.switchToScene = function (sceneTitle) {
+        return false;
+    };
+    PresentationWindow.prototype.nextScene = function () {
+        return false;
+    };
+    PresentationWindow.prototype.previousScene = function () {
+        return false;
+    };
     PresentationWindow.getWindows = function () {
         var presentationElements = document.querySelectorAll("presentation");
         var presentations = [];
@@ -34,14 +51,16 @@ var Scene = /** @class */ (function () {
         this.parent = parent;
         this.title = sceneTitle;
     }
-    Scene.doesNameExist = function (windowID, sceneTitle) {
-        var window = PresentationWindow.getWindowByID(windowID);
-        window === null || window === void 0 ? void 0 : window.scenes.forEach(function (scene) {
+    Scene.getSceneByName = function (window, sceneTitle) {
+        window.scenes.forEach(function (scene) {
             if (scene.title == sceneTitle) {
-                return true;
+                return scene;
             }
         });
-        return false;
+        return null;
+    };
+    Scene.doesNameExist = function (window, sceneTitle) {
+        return Scene.getSceneByName(window, sceneTitle) ? true : false;
     };
     Scene.getScenes = function (window) {
         var sceneElements = document.querySelectorAll("presentation#" + window.id + " scene");
