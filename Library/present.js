@@ -47,10 +47,13 @@ var PresentationWindow = /** @class */ (function () {
 }());
 var Scene = /** @class */ (function () {
     function Scene(parent, sceneTitle) {
-        this.elements = [];
+        this.hidden = true;
         this.parent = parent;
         this.title = sceneTitle;
     }
+    Scene.prototype.setVisible = function (visible) {
+        this.hidden = visible;
+    };
     Scene.getSceneByName = function (window, sceneTitle) {
         window.scenes.forEach(function (scene) {
             if (scene.title == sceneTitle) {
@@ -74,11 +77,6 @@ var Scene = /** @class */ (function () {
         return scenes;
     };
     return Scene;
-}());
-var SceneElement = /** @class */ (function () {
-    function SceneElement() {
-    }
-    return SceneElement;
 }());
 // * PresentJS Instance * //
 var PresentJS = {

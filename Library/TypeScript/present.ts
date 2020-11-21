@@ -3,13 +3,13 @@
 // * Classes * //
 
 class PresentationWindow {
-    obj: HTMLElement | null;
+    readonly obj: HTMLElement | null;
 
     readonly x: number;
     readonly y: number;
 
-    id: string;
-    startAt: string;
+    readonly id: string;
+    readonly startAt: string;
 
     scenes: Scene[];
     currentScene: Scene | null;
@@ -87,13 +87,17 @@ class PresentationWindow {
 }
 
 class Scene {
-    elements: SceneElement[] = [];
-    parent: PresentationWindow | null;
-    title: string;
+    readonly parent: PresentationWindow | null;
+    readonly title: string;
+    hidden: boolean = true;
 
     constructor(parent: PresentationWindow, sceneTitle: string) {
         this.parent = parent;
         this.title = sceneTitle;
+    }
+
+    setVisible(visible: boolean): void {
+        this.hidden = visible;
     }
 
     static getSceneByName(
@@ -136,8 +140,6 @@ class Scene {
         return scenes;
     }
 }
-
-class SceneElement {}
 
 // * PresentJS Instance * //
 
