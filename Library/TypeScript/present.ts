@@ -57,8 +57,6 @@ class PresentationWindow {
     }
 }
 
-// TODO
-
 class Scene {
     elements: SceneElement[] = [];
     parent: PresentationWindow | null;

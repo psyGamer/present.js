@@ -28,7 +28,6 @@ var PresentationWindow = /** @class */ (function () {
     };
     return PresentationWindow;
 }());
-// TODO
 var Scene = /** @class */ (function () {
     function Scene(parent, sceneTitle) {
         this.elements = [];
