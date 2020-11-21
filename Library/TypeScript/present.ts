@@ -9,8 +9,10 @@ class PresentationWindow {
     readonly y: number;
 
     id: string;
+    startAt: string;
 
     scenes: Scene[];
+    currentScene: Scene | null;
 
     constructor(id: string) {
         this.obj = document.querySelector(`presentation#${id}`);
@@ -26,6 +28,33 @@ class PresentationWindow {
         this.id = id;
 
         this.scenes = Scene.getScenes(this);
+
+        if (this.scenes.length == 0) {
+            this.startAt = "";
+            this.currentScene = null;
+
+            return;
+        }
+
+        const startAtAttr: string | null | undefined = this.obj?.getAttribute(
+            "start-at"
+        );
+
+        this.startAt = startAtAttr ? startAtAttr : this.scenes[0].title;
+
+        this.currentScene = Scene.getSceneByName(this, this.startAt);
+    }
+
+    switchToScene(sceneTitle: string): boolean {
+        return false;
+    }
+
+    nextScene(): boolean {
+        return false;
+    }
+
+    previousScene(): boolean {
+        return false;
     }
 
     static getWindows(): PresentationWindow[] {
@@ -67,18 +96,24 @@ class Scene {
         this.title = sceneTitle;
     }
 
-    static doesNameExist(windowID: string, sceneTitle: string): boolean {
-        const window: PresentationWindow | null = PresentationWindow.getWindowByID(
-            windowID
-        );
-
-        window?.scenes.forEach((scene: Scene) => {
+    static getSceneByName(
+        window: PresentationWindow,
+        sceneTitle: string
+    ): Scene | null {
+        window.scenes.forEach((scene) => {
             if (scene.title == sceneTitle) {
-                return true;
+                return scene;
             }
         });
 
-        return false;
+        return null;
+    }
+
+    static doesNameExist(
+        window: PresentationWindow,
+        sceneTitle: string
+    ): boolean {
+        return Scene.getSceneByName(window, sceneTitle) ? true : false;
     }
 
     static getScenes(window: PresentationWindow): Scene[] {
